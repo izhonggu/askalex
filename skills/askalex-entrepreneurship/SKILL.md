@@ -15,9 +15,7 @@ That distinction matters because the failure mode of mindset advice is **comfort
 
 ## Suffering is a constant
 
-The foundational frame, and it dismantles a lot of quiet panic:
-
-> If we're growing, I'm in pain. If we're plateaued, I'm in pain. If we're declining, I'm in pain. Which means I'm pretty much always in pain.
+The foundational frame, and it dismantles a lot of quiet panic: growth hurts, a plateau hurts, and decline hurts too — there is no pain-free state to aim for, only a choice of which pain to be in.
 
 Pain is not evidence that something has gone wrong. It is the admission price. Thinking there is something wrong with pain misses how this works — it's a constant.
 
@@ -36,7 +34,7 @@ Four squares, and most people pick the wrong one:
 
 The rule: **trade short pain for long gain.** Never trade short gain for long pain — that is not the safe bet, it is a guaranteed loss, just later.
 
-The test to run on any hard thing the user is avoiding: *"if you think having the uncomfortable conversation is hard, just wait until you see the result of not having it. It will be harder."*
+The test to run on any hard thing the user is avoiding: whatever discomfort they're dodging, the cost of not doing it is reliably worse than the thing itself would have been.
 
 ## Belief is not binary — it is a dial
 
