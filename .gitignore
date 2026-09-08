@@ -1,0 +1,29 @@
+# Raw copyrighted source material — never distribute
+Alex Hormozi Books/
+AskAlex YouTube Scripts/
+
+# Working/extraction artifacts (contain raw/near-raw extracted text of copyrighted books)
+.workbuddy/
+
+# Atom library: ~100-word chunks are near-verbatim excerpts of paid, "NOT FOR DISTRIBUTION"
+# books, not paraphrases. Never commit.
+knowledge/atoms/
+
+# Card library (knowledge/*.md): verified genuinely paraphrased (spot-checked against source,
+# zero verbatim 8-word overlaps), so this is NOT a copyright-safety exclusion. It's excluded
+# because the current 9 skills route through search_atoms.py -> knowledge/atoms/ instead, not
+# this card library, so shipping it publicly would just be giving away the curated distillation
+# for free with no product reason to. Kept local; revisit if you want it public as documentation.
+knowledge/*.md
+!knowledge/_README.md
+!knowledge/_taxonomy.md
+
+# Internal working docs with real client/business data — not for public repo
+HANDOFF.md
+
+# OS / editor cruft
+.DS_Store
+**/.DS_Store
+
+# Local Claude Code scratch config (not the distributable skill payload)
+.claude/
