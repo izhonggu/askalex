@@ -1,5 +1,7 @@
 # AskAlex
 
+English | [简体中文](README.zh-CN.md)
+
 **A 24/7 business coach that thinks the way Alex Hormozi does — living inside your Claude Code.**
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -12,6 +14,8 @@
 Not affiliated with or endorsed by Alex Hormozi or Acquisition.com. This is fan-built, educational tooling — see [Disclaimer](#disclaimer).
 
 ---
+
+![How AskAlex works](docs/how-it-works.svg)
 
 ## The problem this solves
 
