@@ -1,9 +1,10 @@
 # AskAlex skills
 
-Ten skills. Nine specialists share one knowledge base (25,101 atoms) and one
-set of rules, each owning a distinct question — plus `askalex`, the front
-door, which reads a situation and routes to the right one (or diagnoses
-first, then continues straight into the specialist, in one pass).
+Eleven skills. Nine specialists share one knowledge base (25,101 atoms) and
+one set of rules, each owning a distinct question — plus `askalex`, the
+front door that routes to one of them (or diagnoses first, then chains
+straight into the specialist, in one pass), and `askalex-plan`, which
+sequences multiple things once there's more than one on the table.
 
 **Unsure which one applies? Start with `askalex`.** It does the classification
 below for you and chains the diagnosis into the specialist's actual answer
@@ -16,8 +17,9 @@ it is.
 
 | Skill | Use when the question is about | Core framework |
 |---|---|---|
-| `askalex` | **you don't know which of these nine to pick** | routes to one, or diagnoses then chains into one — see [`askalex/SKILL.md`](askalex/SKILL.md) |
+| `askalex` | **you don't know which of these to pick** | routes to one, or diagnoses then chains into one — see [`askalex/SKILL.md`](askalex/SKILL.md) |
 | `askalex-diagnosis` | **the business as a whole**, and the user cannot say where it hurts | three growth levers → locate the constraint, then hand off |
+| `askalex-plan` | **more than one thing is already on the table** — from a diagnosis, from several specialists, or the user's own list — and the question is what order to run them in | Ten-Stage Scaling Roadmap + one-constraint-at-a-time — see [`askalex-plan/SKILL.md`](askalex-plan/SKILL.md) |
 | `askalex-offer` | **one offer** — building it, or why it isn't converting | Value Equation (4 variables) + Grand Slam Offer (9 steps) |
 | `askalex-pricing` | **the number and the terms** — what to charge, whether to raise, how to bill | three pricing models + 10 pricing plays + price/value/churn |
 | `askalex-businessmodel` | **the shape** — no back end, CAC never pays back, always cash-poor | Money Model: attraction → upsell/downsell → continuity |
@@ -43,6 +45,13 @@ it is.
 - **entrepreneurship vs all of the above.** Sometimes "I'm scared to raise prices" is
   an accurate fear, because the offer really is thin. Check for a business problem
   before coaching through it.
+- **plan vs everything else.** Plan doesn't diagnose and doesn't produce a domain fix —
+  it only orders things that already exist. It's deliberately **not** auto-chained by
+  `askalex`: a single diagnosis handing off to a single specialist is already a
+  complete answer most of the time, and bolting a sequencing step onto every response
+  would bloat the common case for the sake of the occasional one. Call it directly when
+  there are genuinely 2+ things on the table, or when the question is really "what
+  stage am I at."
 
 ## Two hard preconditions
 

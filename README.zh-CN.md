@@ -6,7 +6,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
-![Skills](https://img.shields.io/badge/skills-9-orange)
+![Skills](https://img.shields.io/badge/skills-11-orange)
 ![Status](https://img.shields.io/badge/status-early-lightgrey)
 
 > 任何时候，把生意上的问题丢给它——定价、转化不好的 offer、客户流失、获客没人来，或者单纯是"知道该做什么却迟迟不做"——它不会只是回答你，而是先诊断。九个专家级 skill 共享同一个原则：先定位真正卡住的地方，说清楚背后用的是哪个框架，再给你三件这周就能验证的具体动作。
@@ -21,7 +21,7 @@
 
 大多数"AI 商业建议"死在两个地方：要么泛用到套哪个生意都行（等于对谁都没用），要么只回答你问出来的那句话，而不是那句话背后真正的问题。"我该不该涨价？"很少真的是定价问题——它通常是 offer 问题、激活问题，或者披着定价外衣的"找错客户"问题。
 
-AskAlex 先诊断，再开处方。九个专家 skill 各管一块（offer、价格、offer 之间的顺序、客户终身价值、留存、销售、获客，还有经营者自己的心态），外加一个专门负责"你到底该用哪一个"的分诊 skill。
+AskAlex 先诊断，再开处方。九个专家 skill 各管一块（offer、价格、offer 之间的顺序、客户终身价值、留存、销售、获客，还有经营者自己的心态），外加一个负责"你到底该用哪一个"的总入口，和一个负责"事情不止一件、先做哪个"的排序 skill。
 
 | 真实处境 | 你会得到 |
 |---|---|
@@ -63,14 +63,15 @@ cp -r skills/askalex-* ~/.claude/skills/
 
 如果你已经明确知道要什么，可以跳过总入口直接说——"帮我审计这个 offer""帮我涨价""为什么客户总在流失"——Claude 会直接匹配到对应的专家 skill。
 
-## 十个 skill
+## 十一个 skill
 
-一个总入口，背后九个专家：
+一个总入口，一个排序器，九个专家：
 
 | Skill | 什么问题该用它 | 核心框架 |
 |---|---|---|
-| `askalex` | **不确定该用这九个里的哪一个**——总入口 | 直接路由，或者先诊断再接入对的专家 skill |
+| `askalex` | **不确定该用这几个里的哪一个**——总入口 | 直接路由，或者先诊断再接入对的专家 skill |
 | `askalex-diagnosis` | **整个生意**，你说不清到底哪里疼 | 三个增长杠杆 → 定位约束，再转交 |
+| `askalex-plan` | **手上已经不止一件事要做**——来自诊断、来自好几个专家、或者你自己列的清单——需要知道先做哪个 | Scaling Roadmap 十阶段模型 + 一次只攻一个约束 |
 | `askalex-offer` | **单个 offer**——搭建它，或者搞清楚它为什么转化不好 | Value Equation（四变量）+ Grand Slam Offer（九步法） |
 | `askalex-pricing` | **数字和条款**——收多少、涨不涨、怎么计费 | 三种定价模型 + 10 个 pricing plays + 价格/价值/流失三角 |
 | `askalex-businessmodel` | **结构本身**——没有后端、CAC 回不了本、账上总缺钱 | Money Model：引流 → 追加/降级销售 → 持续续费 |
@@ -80,7 +81,7 @@ cp -r skills/askalex-* ~/.claude/skills/
 | `askalex-leadgen` | **没人找上门**——线索不够、渠道单一 | Core Four（熟人/陌生 × 一对一/一对多） |
 | `askalex-entrepreneurship` | **人本身**——恐惧、信念、自律、倦怠、坚持不下去 | 痛苦 / 信念 / 恐惧 / 身份 / agency / 耐心 |
 
-完整的路由表、skill 之间的边界规则和共享约定都在 [`skills/README.md`](skills/README.md) 里——想加第十个 skill 之前先读一遍，现有九个为了不互相打架是真花了功夫的。
+完整的路由表、skill 之间的边界规则和共享约定都在 [`skills/README.md`](skills/README.md) 里——想加第十二个 skill 之前先读一遍，现有十一个为了不互相打架是真花了功夫的。
 
 ## 工作原理
 
@@ -127,7 +128,7 @@ askalex/
 ├── skills/
 │   ├── README.md              路由表 + 共享规则
 │   ├── askalex/SKILL.md       总入口——直接路由，或先诊断再接入
-│   └── askalex-*/SKILL.md     九个专家 skill
+│   └── askalex-*/SKILL.md     askalex-plan + 九个专家 skill
 ├── scripts/
 │   ├── extract_docx.py        逐字稿 -> 纯文本
 │   ├── extract_books.py       PDF/EPUB -> 纯文本

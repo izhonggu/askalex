@@ -6,7 +6,7 @@ English | [简体中文](README.zh-CN.md)
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
-![Skills](https://img.shields.io/badge/skills-9-orange)
+![Skills](https://img.shields.io/badge/skills-11-orange)
 ![Status](https://img.shields.io/badge/status-early-lightgrey)
 
 > Bring it a business problem at any hour — pricing, an offer that isn't converting, customers who cancel, leads that go nowhere, or just the fact that you know what to do and aren't doing it — and it doesn't just answer, it diagnoses. Nine specialist skills share one job: locate what's actually broken, name the framework behind the read, and hand you three things to try this week, each with a way to know if it worked.
@@ -21,7 +21,7 @@ Not affiliated with or endorsed by Alex Hormozi or Acquisition.com. This is fan-
 
 Most "AI business advice" fails in one of two ways: it's generic enough to apply to any business (so it applies to none), or it answers the question you asked instead of the question underneath it. "Should I raise my prices?" is rarely a pricing question — it's usually an offer problem, an activation problem, or a wrong-customer problem wearing a pricing costume.
 
-AskAlex diagnoses before it prescribes. Nine specialist skills, each owning one part of the business (the offer, the price, the sequence of offers, lifetime value, retention, sales, lead flow, or the operator's own head), plus one skill whose only job is figuring out which of the other eight you actually need.
+AskAlex diagnoses before it prescribes. Nine specialist skills, each owning one part of the business (the offer, the price, the sequence of offers, lifetime value, retention, sales, lead flow, or the operator's own head), plus a front door that figures out which one you need and a sequencer for when more than one applies at once.
 
 | Real situation | What you get |
 |---|---|
@@ -63,14 +63,15 @@ Should I just raise the price?
 
 If you already know exactly what you need, skip the front door and say so directly — "audit this offer," "help me raise prices," "why do people cancel" — and Claude will match straight to the relevant specialist.
 
-## The ten skills
+## The eleven skills
 
-One front door, nine specialists behind it:
+One front door, one sequencer, nine specialists:
 
 | Skill | Use when the question is about | Core framework |
 |---|---|---|
 | `askalex` | **you don't know which of these to pick** — the front door | routes directly, or diagnoses then chains into the right specialist |
 | `askalex-diagnosis` | **the business as a whole**, and you can't say where it hurts | three growth levers → locate the constraint, then hand off |
+| `askalex-plan` | **more than one thing is already on the table** and you need to know what order to run them in | Ten-Stage Scaling Roadmap + one-constraint-at-a-time |
 | `askalex-offer` | **one offer** — building it, or why it isn't converting | Value Equation (4 variables) + Grand Slam Offer (9 steps) |
 | `askalex-pricing` | **the number and the terms** — what to charge, whether to raise, how to bill | three pricing models + 10 pricing plays + price/value/churn |
 | `askalex-businessmodel` | **the shape** — no back end, CAC never pays back, always cash-poor | Money Model: attraction → upsell/downsell → continuity |
@@ -80,7 +81,7 @@ One front door, nine specialists behind it:
 | `askalex-leadgen` | **nobody is talking to you** — not enough leads, one channel | Core Four (warm/cold × 1-to-1/1-to-many) |
 | `askalex-entrepreneurship` | **the person** — fear, beliefs, discipline, burnout, consistency | pain / beliefs / fear / identity / agency / patience |
 
-Full routing table, boundary rules between skills, and shared conventions live in [`skills/README.md`](skills/README.md) — read it before adding a tenth skill, the nine already spent real effort not overlapping.
+Full routing table, boundary rules between skills, and shared conventions live in [`skills/README.md`](skills/README.md) — read it before adding a twelfth skill, the eleven already spent real effort not overlapping.
 
 ## How it works
 
@@ -127,7 +128,7 @@ askalex/
 ├── skills/
 │   ├── README.md              routing table + shared rules
 │   ├── askalex/SKILL.md       the front door — routes or diagnoses-then-chains
-│   └── askalex-*/SKILL.md     the nine specialists
+│   └── askalex-*/SKILL.md     askalex-plan + the nine domain specialists
 ├── scripts/
 │   ├── extract_docx.py        transcript -> plain text
 │   ├── extract_books.py       PDF/EPUB -> plain text
