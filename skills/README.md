@@ -67,6 +67,36 @@ Every skill carries these in its own file; they are listed here once.
 - Numbers over adjectives. "Raise new customers to $129 and add a $49 annual fee"
   beats "consider revisiting your pricing."
 
+### Make the finding land, don't just report it
+
+A finding that's technically correct but reads like a status report has failed at its
+job. This was learned the hard way from a real diagnosis that came back too flat —
+three habits that make the difference:
+
+- **The Constraint (or equivalent headline) is a reframe, not a description.** "Budget
+  is under-deployed" is a fact. "The problem isn't where you're underperforming — you're
+  performing so well it's costing you money" is the *same* fact, stated as a reversal
+  that makes the reader stop. Look for the version of the finding that inverts the
+  reader's assumption before you settle for the flat one.
+- **Translate every ratio into a consequence, not just a multiple.** "3x margin of
+  safety" is analysis; "every dollar you don't spend on this channel is costing you
+  about $X in margin" is the same number aimed at a decision. "12.5% checkout
+  completion" is a stat; "6,000 people who already had their wallet out didn't buy" is
+  the same stat, but it hurts. Do this conversion for the two or three numbers that
+  actually matter — not every number in the analysis, or nothing lands.
+- **Concentrate the reveal, don't spread it.** One finding, stated once and hard, up
+  front — then supported — beats the same finding broken into a headline plus a table
+  plus three bullet points. Where an output shape defines a single headline block (e.g.
+  askalex-diagnosis's Constraint), that block carries the whole punch; everything after
+  it is evidence, not a second attempt at the hook.
+
+**None of this licenses inventing a sharper number than the data supports.** If the user
+gives a real number — a real breakeven ROAS, a real margin — the sharpened version must
+be recomputed from *that* number, never carried over from a punchier-sounding assumption
+used earlier in the conversation or in a prior analysis, even if the old number made a
+better line. A correct 3x is worth more than a wrong 16x. Accuracy sets the ceiling on
+how sharp you're allowed to sound — style never overrides it.
+
 ## Retrieval
 
 ```

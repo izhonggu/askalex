@@ -88,7 +88,7 @@ Price resistance is a *denominator* problem far more often than a numerator prob
 
 Keep it tight. Four blocks, in this order:
 
-**1. Constraint** — one sentence naming the lever and what is broken.
+**1. Constraint** — one sentence naming the lever and what is broken. This sentence carries the whole diagnosis's punch — write it as a reframe that inverts what the user probably assumes, not a flat status statement (see "Make the finding land" in `skills/README.md`). "Budget is under-deployed" is correct and forgettable; "the problem isn't where you're underperforming, it's that you're performing so well it's costing you money" is the same finding, stated so it lands. Everything in blocks 2-4 is evidence for this sentence, not a second attempt at making the point.
 
 **2. Why** — the mechanism. Which variable is failing and what evidence points there. If the evidence is thin, say what is missing instead of papering over it.
 
