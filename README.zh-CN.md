@@ -55,16 +55,21 @@ cp -r skills/askalex-* ~/.claude/skills/
 装完之后，直接描述问题就行，不用管该用哪个 skill：
 
 ```text
-我做付费教练业务，每月 500 美元，客户大概第三个月就开始流失。
+/askalex 我做付费教练业务，每月 500 美元，客户大概第三个月就开始流失。
 我是不是该直接涨价？
 ```
 
-Claude 会根据你的描述匹配到对的 skill（这个例子里是 retention，不是 pricing——具体为什么，看 `skills/askalex-diagnosis/SKILL.md` 里的示例）。如果你已经明确知道要什么，也可以直接说——"帮我审计这个 offer""帮我涨价""为什么客户总在流失"。
+`askalex` 是总入口——它会先判断这个情况是某一个专家 skill 直接能接的，还是需要先诊断，然后一口气给出答案（这个例子里，它会诊断出真正的问题是留存而不是定价，然后直接接着给出留存方向的建议——不用你再问一次）。具体示例见 [`skills/askalex/SKILL.md`](skills/askalex/SKILL.md)。
 
-## 九个 skill
+如果你已经明确知道要什么，可以跳过总入口直接说——"帮我审计这个 offer""帮我涨价""为什么客户总在流失"——Claude 会直接匹配到对应的专家 skill。
+
+## 十个 skill
+
+一个总入口，背后九个专家：
 
 | Skill | 什么问题该用它 | 核心框架 |
 |---|---|---|
+| `askalex` | **不确定该用这九个里的哪一个**——总入口 | 直接路由，或者先诊断再接入对的专家 skill |
 | `askalex-diagnosis` | **整个生意**，你说不清到底哪里疼 | 三个增长杠杆 → 定位约束，再转交 |
 | `askalex-offer` | **单个 offer**——搭建它，或者搞清楚它为什么转化不好 | Value Equation（四变量）+ Grand Slam Offer（九步法） |
 | `askalex-pricing` | **数字和条款**——收多少、涨不涨、怎么计费 | 三种定价模型 + 10 个 pricing plays + 价格/价值/流失三角 |
@@ -121,7 +126,8 @@ python3 scripts/atomize.py           # 两者 -> knowledge/atoms/atoms.jsonl
 askalex/
 ├── skills/
 │   ├── README.md              路由表 + 共享规则
-│   └── askalex-*/SKILL.md     九个 skill
+│   ├── askalex/SKILL.md       总入口——直接路由，或先诊断再接入
+│   └── askalex-*/SKILL.md     九个专家 skill
 ├── scripts/
 │   ├── extract_docx.py        逐字稿 -> 纯文本
 │   ├── extract_books.py       PDF/EPUB -> 纯文本

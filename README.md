@@ -55,16 +55,21 @@ cp -r skills/askalex-* ~/.claude/skills/
 Once installed, just describe the problem — you don't need to know which skill you want:
 
 ```text
-My coaching business is $500/mo and people cancel around month 3.
+/askalex My coaching business is $500/mo and people cancel around month 3.
 Should I just raise the price?
 ```
 
-Claude matches the description against your situation and pulls in the right skill (here: retention, not pricing — see why in the example inside `skills/askalex-diagnosis/SKILL.md`). If you already know exactly what you need, you can also just say so directly — "audit this offer," "help me raise prices," "why do people cancel."
+`askalex` is the front door — it reads the situation, decides whether it's one specialist's job or needs diagnosis first, and answers in one pass (here: it diagnoses, finds the real issue is retention rather than pricing, and continues straight into the retention read — no need to ask twice). See the example inside [`skills/askalex/SKILL.md`](skills/askalex/SKILL.md).
 
-## The nine skills
+If you already know exactly what you need, skip the front door and say so directly — "audit this offer," "help me raise prices," "why do people cancel" — and Claude will match straight to the relevant specialist.
+
+## The ten skills
+
+One front door, nine specialists behind it:
 
 | Skill | Use when the question is about | Core framework |
 |---|---|---|
+| `askalex` | **you don't know which of these to pick** — the front door | routes directly, or diagnoses then chains into the right specialist |
 | `askalex-diagnosis` | **the business as a whole**, and you can't say where it hurts | three growth levers → locate the constraint, then hand off |
 | `askalex-offer` | **one offer** — building it, or why it isn't converting | Value Equation (4 variables) + Grand Slam Offer (9 steps) |
 | `askalex-pricing` | **the number and the terms** — what to charge, whether to raise, how to bill | three pricing models + 10 pricing plays + price/value/churn |
@@ -121,7 +126,8 @@ If you want to point this whole system at your *own* business's content instead 
 askalex/
 ├── skills/
 │   ├── README.md              routing table + shared rules
-│   └── askalex-*/SKILL.md     the nine skills
+│   ├── askalex/SKILL.md       the front door — routes or diagnoses-then-chains
+│   └── askalex-*/SKILL.md     the nine specialists
 ├── scripts/
 │   ├── extract_docx.py        transcript -> plain text
 │   ├── extract_books.py       PDF/EPUB -> plain text

@@ -1,12 +1,22 @@
 # AskAlex skills
 
-Nine skills. They share one knowledge base (25,183 atoms) and one set of rules,
-but each owns a distinct question. The table below is the router.
+Ten skills. Nine specialists share one knowledge base (25,183 atoms) and one
+set of rules, each owning a distinct question — plus `askalex`, the front
+door, which reads a situation and routes to the right one (or diagnoses
+first, then continues straight into the specialist, in one pass).
+
+**Unsure which one applies? Start with `askalex`.** It does the classification
+below for you and chains the diagnosis into the specialist's actual answer
+instead of just naming which skill to go ask next. Everything past this point
+is what `askalex` is routing against — read on if you're adding a skill,
+calling a specialist directly, or want to know why a boundary is drawn where
+it is.
 
 ## Pick one
 
 | Skill | Use when the question is about | Core framework |
 |---|---|---|
+| `askalex` | **you don't know which of these nine to pick** | routes to one, or diagnoses then chains into one — see [`askalex/SKILL.md`](askalex/SKILL.md) |
 | `askalex-diagnosis` | **the business as a whole**, and the user cannot say where it hurts | three growth levers → locate the constraint, then hand off |
 | `askalex-offer` | **one offer** — building it, or why it isn't converting | Value Equation (4 variables) + Grand Slam Offer (9 steps) |
 | `askalex-pricing` | **the number and the terms** — what to charge, whether to raise, how to bill | three pricing models + 10 pricing plays + price/value/churn |
