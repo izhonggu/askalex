@@ -1,10 +1,15 @@
 # AskAlex skills
 
-Eleven skills. Nine specialists share one knowledge base (25,101 atoms) and
+Twelve skills. Nine specialists share one knowledge base (25,101 atoms) and
 one set of rules, each owning a distinct question — plus `askalex`, the
 front door that routes to one of them (or diagnoses first, then chains
-straight into the specialist, in one pass), and `askalex-plan`, which
-sequences multiple things once there's more than one on the table.
+straight into the specialist, in one pass); `askalex-plan`, which sequences
+multiple things once there's more than one on the table; and
+`askalex-retro`, which interprets the result once something on that
+sequence has actually been tried. Diagnosis and plan run *before* evidence
+exists; retro is the only one that runs *after* — think Plan → Do (in the
+real world, not in AskAlex) → Check, with retro owning Check and feeding
+back into diagnosis or plan for the next round.
 
 **Unsure which one applies? Start with `askalex`.** It does the classification
 below for you and chains the diagnosis into the specialist's actual answer
@@ -20,6 +25,7 @@ it is.
 | `askalex` | **you don't know which of these to pick** | routes to one, or diagnoses then chains into one — see [`askalex/SKILL.md`](askalex/SKILL.md) |
 | `askalex-diagnosis` | **the business as a whole**, and the user cannot say where it hurts | three growth levers → locate the constraint, then hand off |
 | `askalex-plan` | **more than one thing is already on the table** — from a diagnosis, from several specialists, or the user's own list — and the question is what order to run them in | Ten-Stage Scaling Roadmap + one-constraint-at-a-time — see [`askalex-plan/SKILL.md`](askalex-plan/SKILL.md) |
+| `askalex-retro` | **something was already tried and a result came in** — was the bet right, what does the number actually mean | clean-test check + falsifier scoring + "shaking the three" — see [`askalex-retro/SKILL.md`](askalex-retro/SKILL.md) |
 | `askalex-offer` | **one offer** — building it, or why it isn't converting | Value Equation (4 variables) + Grand Slam Offer (9 steps) |
 | `askalex-pricing` | **the number and the terms** — what to charge, whether to raise, how to bill | three pricing models + 10 pricing plays + price/value/churn |
 | `askalex-businessmodel` | **the shape** — no back end, CAC never pays back, always cash-poor | Money Model: attraction → upsell/downsell → continuity |
@@ -52,6 +58,11 @@ it is.
   would bloat the common case for the sake of the occasional one. Call it directly when
   there are genuinely 2+ things on the table, or when the question is really "what
   stage am I at."
+- **retro vs diagnosis.** The test is whether there's a specific prior bet with a
+  result attached. "Business feels stuck, not sure why" (no prior hypothesis) is
+  diagnosis. "We tried what you suggested and X happened" (a bet plus a result) is
+  retro. Retro never starts cold, and — like plan — it is **not** auto-chained by
+  `askalex`; call it directly when reporting back on something specific.
 
 ## Two hard preconditions
 
