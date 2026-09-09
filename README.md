@@ -153,7 +153,7 @@ Alex Hormozi's public teaching — YouTube, books, and talks.
 
 ## Author & support
 
-Built by Zhong — [X](https://x.com/izhonggu) · [LinkedIn](https://www.linkedin.com/in/guzhong/) · [Newsletter](https://sendfox.com/lp/1w0zkj) · [hardcoremkt.com](https://hardcoremkt.com/)
+Built by Zhong — [X](https://x.com/izhonggu) · [LinkedIn](https://www.linkedin.com/in/guzhong/) · [Newsletter](https://sendfox.com/hardcore-mkt) · [hardcoremkt.com](https://hardcoremkt.com/)
 
 This ran a genuinely large amount of extraction, review, and iteration to put together — if a diagnosis here saved you a coaching call, a tip is welcome and helps keep it maintained.
 
