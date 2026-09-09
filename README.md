@@ -86,21 +86,7 @@ Full routing table, boundary rules between skills, and shared conventions live i
 
 ## How it works
 
-```text
-your source material (transcripts, books, notes — yours to provide)
-   │
-   ▼  scripts/extract_docx.py, scripts/extract_books.py
-plain text, cleaned of front matter / TOCs / ligature-encoding bugs
-   │
-   ▼  scripts/atomize.py  (TextTiling semantic segmentation, no LLM calls)
-knowledge/atoms/atoms.jsonl — ~100-word propositional atoms, tagged by pillar
-   │
-   ▼  scripts/search_atoms.py  (TF + title weighting + signal scoring)
-a handful of relevant atoms per query
-   │
-   ▼
-whichever askalex-* skill is answering, grounding its reasoning in what it retrieved
-```
+![How the knowledge base is built](docs/knowledge-pipeline.svg)
 
 Every skill answers the same way: retrieve 2-4 times with different framings (the symptom, the mechanism, the fix), synthesize instead of dumping raw results, name the framework it used, and say plainly when retrieval comes back empty instead of inventing a take. See the shared rules in [`skills/README.md`](skills/README.md#shared-rules).
 

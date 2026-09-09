@@ -86,21 +86,7 @@ cp -r skills/askalex-* ~/.claude/skills/
 
 ## 工作原理
 
-```text
-你的原始素材（逐字稿、书籍、笔记——需要你自己提供）
-   │
-   ▼  scripts/extract_docx.py, scripts/extract_books.py
-清洗后的纯文本（去掉版权页/目录/连字编码乱码）
-   │
-   ▼  scripts/atomize.py（TextTiling 语义分段，不调用 LLM）
-knowledge/atoms/atoms.jsonl —— 约 100 词一条的命题原子，按 pillar 打标签
-   │
-   ▼  scripts/search_atoms.py（词频 + 标题加权 + 信号打分）
-每次查询召回的一小批相关原子
-   │
-   ▼
-当前回答的 askalex-* skill，把检索到的内容作为推理依据
-```
+![知识库是怎么建出来的](docs/knowledge-pipeline.svg)
 
 每个 skill 的回答方式是一致的：用不同角度检索 2-4 次（症状一次、机制一次、解法一次），综合而不是把原始结果直接倒出来，点名用到的框架，检索结果稀薄时就直说，不编造答案。共享规则见 [`skills/README.md`](skills/README.md#shared-rules)。
 

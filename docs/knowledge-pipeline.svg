@@ -1,0 +1,96 @@
+<svg viewBox="0 0 1600 760" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="760" rx="20" fill="#F8FAFC"/>
+  <rect x="1" y="1" width="1598" height="758" rx="19" fill="none" stroke="#E2E8F0" stroke-width="2"/>
+
+  <!-- Eyebrow -->
+  <rect x="60" y="46" width="6" height="22" fill="#2563EB"/>
+  <text x="78" y="63" font-size="15" font-weight="700" letter-spacing="1.5" fill="#2563EB">ASKALEX · HOW THE KNOWLEDGE BASE IS BUILT</text>
+
+  <!-- Title -->
+  <text x="60" y="112" font-size="34" font-weight="800" fill="#0F172A">From raw transcripts to a searchable base</text>
+  <text x="60" y="144" font-size="17" fill="#475569">Mechanical extraction, no LLM in the loop — semantic search is the one optional add-on step.</text>
+
+  <!-- ===== Row of 4 pipeline stages ===== -->
+  <!-- Stage 1: SOURCE -->
+  <g>
+    <rect x="60" y="190" width="320" height="150" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <circle cx="96" cy="226" r="16" fill="#2563EB"/>
+    <text x="96" y="231" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+    <text x="122" y="215" font-size="12" font-weight="700" letter-spacing="1" fill="#64748B">STAGE</text>
+    <text x="122" y="232" font-size="19" font-weight="800" fill="#0F172A">Source</text>
+    <text x="88" y="270" font-size="15" fill="#334155">Your own transcripts and</text>
+    <text x="88" y="292" font-size="15" fill="#334155">books — yours to provide,</text>
+    <text x="88" y="314" font-size="15" fill="#334155">not shipped with the repo.</text>
+  </g>
+
+  <line x1="382" y1="265" x2="426" y2="265" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Stage 2: EXTRACT -->
+  <g>
+    <rect x="430" y="190" width="320" height="150" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <circle cx="466" cy="226" r="16" fill="#2563EB"/>
+    <text x="466" y="231" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="492" y="215" font-size="12" font-weight="700" letter-spacing="1" fill="#64748B">STAGE</text>
+    <text x="492" y="232" font-size="19" font-weight="800" fill="#0F172A">Extract</text>
+    <text x="458" y="270" font-size="15" fill="#334155">extract_docx.py / _books.py</text>
+    <text x="458" y="292" font-size="15" fill="#334155">clean plain text, front matter</text>
+    <text x="458" y="314" font-size="15" fill="#334155">and TOC noise stripped out.</text>
+  </g>
+
+  <line x1="752" y1="265" x2="796" y2="265" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Stage 3: ATOMIZE -->
+  <g>
+    <rect x="800" y="190" width="320" height="150" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <circle cx="836" cy="226" r="16" fill="#2563EB"/>
+    <text x="836" y="231" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+    <text x="862" y="215" font-size="12" font-weight="700" letter-spacing="1" fill="#64748B">STAGE</text>
+    <text x="862" y="232" font-size="19" font-weight="800" fill="#0F172A">Atomize</text>
+    <text x="828" y="270" font-size="15" fill="#334155">atomize.py — TextTiling cuts</text>
+    <text x="828" y="292" font-size="15" fill="#334155">~100-word atoms, tags each</text>
+    <text x="828" y="314" font-size="15" fill="#334155">by pillar. No LLM calls.</text>
+  </g>
+
+  <line x1="1122" y1="265" x2="1166" y2="265" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Stage 4: RETRIEVE -->
+  <g>
+    <rect x="1170" y="190" width="320" height="150" rx="14" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+    <circle cx="1206" cy="226" r="16" fill="#2563EB"/>
+    <text x="1206" y="231" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+    <text x="1232" y="215" font-size="12" font-weight="700" letter-spacing="1" fill="#64748B">STAGE</text>
+    <text x="1232" y="232" font-size="19" font-weight="800" fill="#0F172A">Retrieve</text>
+    <text x="1198" y="270" font-size="15" fill="#334155">search_atoms.py — keyword</text>
+    <text x="1198" y="292" font-size="15" fill="#334155">scoring, blended with semantic</text>
+    <text x="1198" y="314" font-size="15" fill="#334155">similarity when available.</text>
+  </g>
+
+  <!-- ===== Optional semantic branch ===== -->
+  <text x="800" y="392" font-size="14" font-weight="700" letter-spacing="1" fill="#64748B" text-anchor="middle">ONE OPTIONAL STEP, ADDITIVE ONLY</text>
+
+  <line x1="960" y1="340" x2="960" y2="452" stroke="#94A3B8" stroke-width="2.5" stroke-dasharray="6,5"/>
+  <line x1="1336" y1="340" x2="1336" y2="410" stroke="#94A3B8" stroke-width="2.5" stroke-dasharray="6,5"/>
+  <line x1="960" y1="410" x2="1336" y2="410" stroke="#94A3B8" stroke-width="2.5" stroke-dasharray="6,5"/>
+  <line x1="1336" y1="410" x2="1336" y2="452" stroke="#94A3B8" stroke-width="2.5" marker-end="url(#arrow2)" stroke-dasharray="6,5"/>
+
+  <g>
+    <rect x="760" y="460" width="400" height="130" rx="14" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5" stroke-dasharray="0"/>
+    <text x="788" y="496" font-size="13" font-weight="700" letter-spacing="1" fill="#2563EB">OPTIONAL — build_embeddings.py</text>
+    <text x="788" y="524" font-size="17" font-weight="800" fill="#0F172A">Semantic index</text>
+    <text x="788" y="552" font-size="15" fill="#334155">BAAI/bge-small-en-v1.5, precomputed once.</text>
+    <text x="788" y="572" font-size="15" fill="#334155">Missing? Retrieval just runs keyword-only.</text>
+  </g>
+
+  <!-- Principle bar -->
+  <rect x="60" y="632" width="1480" height="100" rx="14" fill="#0F172A"/>
+  <circle cx="96" cy="672" r="6" fill="#2563EB"/>
+  <text x="118" y="662" font-size="13" font-weight="700" letter-spacing="1" fill="#93C5FD">RESULT</text>
+  <text x="118" y="690" font-size="17" fill="#F1F5F9">A handful of relevant atoms per query — retrieved and combined via Reciprocal Rank Fusion, never dumped raw into an answer.</text>
+  <text x="118" y="712" font-size="17" fill="#F1F5F9">Whichever askalex-* skill is answering grounds every claim in what actually came back.</text>
+</svg>
