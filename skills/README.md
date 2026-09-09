@@ -1,6 +1,6 @@
 # AskAlex skills
 
-Ten skills. Nine specialists share one knowledge base (25,183 atoms) and one
+Ten skills. Nine specialists share one knowledge base (25,101 atoms) and one
 set of rules, each owning a distinct question — plus `askalex`, the front
 door, which reads a situation and routes to the right one (or diagnoses
 first, then continues straight into the specialist, in one pass).

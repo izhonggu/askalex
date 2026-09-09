@@ -17,7 +17,7 @@ knowledge/
 ├── D_business_general.md
 ├── E_mindset.md        ┘
 └── atoms/              ┐
-    ├── atoms.jsonl     ├─ ATOM LIBRARY — script-generated, 25,183 atoms
+    ├── atoms.jsonl     ├─ ATOM LIBRARY — script-generated, 25,101 atoms
     └── atoms_report.json  ~100 words per atom, JSONL
                         ┘  built for machines retrieving by keyword
 ```
@@ -65,4 +65,4 @@ python3 scripts/atomize.py          # both -> knowledge/atoms/atoms.jsonl
 ```
 
 Warning: `atomize.py` **overwrites** `atoms.jsonl`. Back it up first if the
-current 25,183 atoms matter.
+current 25,101 atoms matter.

@@ -1,6 +1,6 @@
 ---
 name: askalex-sales
-description: Close more of the prospects you already have, and pitch properly. Use when leads exist but revenue does not ("we get calls but nobody buys", "our close rate is bad", "they say they need to think about it", "they say it's too expensive", "I froze when they objected"), or when the user needs a pitch or call structure ("how do I pitch this", "what do I say on the sales call", "help me handle this objection"). Covers the three buyer buckets, the onion of blame, objection handling, and named closes. Grounded in 2,612 sales atoms including Alex Hormozi's $100M Playbook on Closing. Distinct from askalex-leadgen — that gets people to the call; this converts the ones already there.
+description: Close more of the prospects you already have, and pitch properly. Use when leads exist but revenue does not ("we get calls but nobody buys", "our close rate is bad", "they say they need to think about it", "they say it's too expensive", "I froze when they objected"), or when the user needs a pitch or call structure ("how do I pitch this", "what do I say on the sales call", "help me handle this objection"). Covers the three buyer buckets, the onion of blame, objection handling, and named closes. Grounded in 2,526 sales atoms including Alex Hormozi's $100M Playbook on Closing. Distinct from askalex-leadgen — that gets people to the call; this converts the ones already there.
 ---
 
 # AskAlex Sales
@@ -97,7 +97,7 @@ Non-negotiables, straight from the playbook:
 
 ## The knowledge base
 
-2,612 sales & closing atoms (pillar B2), including Alex's $100M Playbook on Closing. At:
+2,526 sales & closing atoms (pillar B2), including Alex's $100M Playbook on Closing. At:
 
 ```
 /Users/Zhong/Projects/AskAlex/knowledge/atoms/atoms.jsonl

@@ -1,6 +1,6 @@
 ---
 name: askalex-diagnosis
-description: Diagnose a business problem the way Alex Hormozi would — locate the real constraint, find its root cause, and prescribe validation actions. Use when the user describes a business that is stuck, slow, unprofitable, or not converting, and asks what to fix (pricing, offer, leads, churn, sales, growth) — e.g. "my customers say I'm too expensive", "we get leads but nobody closes", "people cancel after month 3", "revenue is flat". Grounds every diagnosis in a 25,183-atom knowledge base distilled from Alex's 373 YouTube transcripts and 18 books. Does NOT draft ads, posts, or sales copy — diagnose first; writing is a separate step.
+description: Diagnose a business problem the way Alex Hormozi would — locate the real constraint, find its root cause, and prescribe validation actions. Use when the user describes a business that is stuck, slow, unprofitable, or not converting, and asks what to fix (pricing, offer, leads, churn, sales, growth) — e.g. "my customers say I'm too expensive", "we get leads but nobody closes", "people cancel after month 3", "revenue is flat". Grounds every diagnosis in a 25,101-atom knowledge base distilled from Alex's 373 YouTube transcripts and 18 books. Does NOT draft ads, posts, or sales copy — diagnose first; writing is a separate step.
 ---
 
 # AskAlex Diagnosis
@@ -11,7 +11,7 @@ The urge is to answer the question *as asked*. Resist it. "Should I raise my pri
 
 ## The knowledge base
 
-25,183 proposition-level atoms distilled from Alex's 373 transcripts and 18 books, at:
+25,101 proposition-level atoms distilled from Alex's 373 transcripts and 18 books, at:
 
 ```
 /Users/Zhong/Projects/AskAlex/knowledge/atoms/atoms.jsonl
