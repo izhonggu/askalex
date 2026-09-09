@@ -197,7 +197,15 @@ def main() -> int:
             continue
         content = a["content"] if args.full or len(a["content"]) <= args.chars \
             else a["content"][: args.chars] + "..."
-        print(f"[{a['id']}] {a['pillar']} {a['pillar_name']} | signal={a['signal']} "
+        # --pillar matches on primary OR secondary tags by design (a secondary-
+        # tagged atom is still relevant) — but that means the atom's own
+        # a["pillar"] can print as a *different* code than the one just
+        # filtered on, which reads like the filter is broken if left silent.
+        # Make the secondary-tag match explicit instead.
+        pillar_note = ""
+        if args.pillar and a["pillar"] != args.pillar:
+            pillar_note = f" [secondary match for --pillar {args.pillar}]"
+        print(f"[{a['id']}] {a['pillar']} {a['pillar_name']}{pillar_note} | signal={a['signal']} "
               f"| score={s:.2f} | {a['title']}")
         print(f"    {content}")
         print(f"    — source: {a['source']}")

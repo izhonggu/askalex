@@ -59,14 +59,16 @@ Same rules as every specialist here, because this skill produces their output di
 - **Name which specialist frame is answering**, briefly — "this is the retention read" or similar — so the routing itself stays legible, not just the content.
 - **One diagnosis, at most one specialist, per turn.** This skill chains two steps, never three. If the situation genuinely spans multiple specialists (e.g. a pricing decision that also needs a retention precondition check), the *specialist* skill handles that internally in its own rules — it does not mean running two specialists back to back here.
 
-## Example
+## Three examples
+
+**User:** "My close rate is terrible, people say they need to think about it."
+
+Object of work is already named — this is sales, not a mystery. Skip diagnosis, go straight to `askalex-sales`.
 
 **User:** "Things feel stuck. We're not really growing anymore and I don't know why."
 
-**Step 1:** No specific object of work named — this is the whole-business case. Diagnose first.
+No object of work named — the whole-business case. Diagnose first. But notice this user gave no numbers at all — no customer count, no purchase frequency, no revenue per purchase. That's the "missing input is data, not a framework" exception from Step 2: ask for the three numbers. Do **not** invent a plausible-sounding finding just to have something to chain into — a vague complaint with zero data attached should end in a question, not a specialist's output.
 
-**Step 2:** Run the three-lever read. Say diagnosis concluded, for example, that new customers are fine but purchase frequency has flattened — a retention question. Continue directly into `askalex-retention`'s frame: activation point, decay curve, the specific intervention — without waiting for the user to ask again.
+**User:** "Same as above, but: new customers have held steady around 40/month for the past year; repeat purchases per customer dropped from about 3 to under 2 over the same stretch."
 
-**Contrast — User:** "My close rate is terrible, people say they need to think about it."
-
-**Step 1:** They named the object of work — this is sales, not a mystery. Skip diagnosis, go straight to `askalex-sales`.
+Now there's enough to actually diagnose. Lever 2 (buy more often) moved, lever 1 didn't — that's a retention read, not a leadgen one. Continue directly into `askalex-retention`'s frame: activation point, decay curve, the specific intervention — without waiting for the user to ask again. This, not the previous example, is what "diagnose then chain" actually looks like: the chain is earned by real evidence, not manufactured to demonstrate the mechanic.

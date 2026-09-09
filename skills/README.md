@@ -84,3 +84,14 @@ Pillars: **A1** Branding · **A2** Marketing & Ads · **A3** Lead Gen · **B1** 
 
 Search 2-4 times per answer, with different framings — one for the symptom, one for
 the mechanism, one for the fix.
+
+**If the user isn't writing in English, translate the concept before you search, not
+the sentence.** The knowledge base is English prose and `search_atoms.py` does
+keyword/TF scoring, not cross-lingual embedding matching — querying it with the
+user's original non-English text will silently return weak or empty results, which
+looks like "the knowledge base has nothing on this" when really the search just never
+had a chance to match. Convert what they're actually asking into idiomatic English
+search terms first (e.g. a Chinese question about customers not returning becomes
+something like `"customer churn repeat purchase"`, not a transliteration), then query
+normally. Answer the user in whatever language they wrote in — this only affects the
+search string, not the response.
