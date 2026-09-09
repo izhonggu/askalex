@@ -60,9 +60,27 @@ so you can tell them apart from transcript atoms.
 python3 scripts/extract_docx.py     # 373 .docx -> .workbuddy/extracted/
 python3 scripts/extract_books.py    # 18 books -> .workbuddy/extracted_books/
 python3 scripts/atomize.py          # both -> knowledge/atoms/atoms.jsonl
-# transcripts only:  python3 scripts/atomize.py --sources transcripts
-# books only:        python3 scripts/atomize.py --sources books
 ```
 
-Warning: `atomize.py` **overwrites** `atoms.jsonl`. Back it up first if the
-current 25,101 atoms matter.
+Warning: `atomize.py` **overwrites** `atoms.jsonl` — the whole file, not just the
+source you asked for. `--sources books` and `--sources transcripts` are filters on
+which *input* to read, not a merge into the existing output: running `--sources books`
+after a full build replaces atoms.jsonl with *books only*, silently dropping every
+transcript atom that was in there. (Hit this firsthand re-extracting one book — the fix
+was rerunning with `--sources all`, i.e. no flag, to regenerate the true merged set.)
+Back up `atoms.jsonl` before rerunning anything, and if you only changed one source's
+input text, still rebuild with both (the default, no `--sources` flag) afterward.
+
+### Semantic search index (optional)
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install fastembed numpy
+.venv/bin/python3 scripts/build_embeddings.py   # atoms.jsonl -> embeddings.npy + embeddings_ids.json
+```
+
+Adds cosine-similarity retrieval on top of `search_atoms.py`'s keyword scoring (see
+`skills/README.md`'s Retrieval section for how the two combine). Rerun this after any
+`atomize.py` run that changes `atoms.jsonl` — the embeddings are keyed by atom ID, so a
+stale index just silently stops matching rows that changed rather than erroring. Both
+output files land in `knowledge/atoms/`, gitignored the same as `atoms.jsonl` itself.

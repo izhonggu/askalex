@@ -27,3 +27,10 @@ HANDOFF.md
 
 # Local Claude Code scratch config (not the distributable skill payload)
 .claude/
+
+# Project venv for optional semantic search (scripts/build_embeddings.py +
+# search_atoms.py's semantic mode). Not committed — anyone enabling this
+# creates their own with `python3 -m venv .venv && .venv/bin/pip install
+# fastembed numpy`. knowledge/atoms/embeddings*.npy and embeddings_ids.json
+# are already covered by the knowledge/atoms/ rule above.
+.venv/

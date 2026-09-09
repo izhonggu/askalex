@@ -3,15 +3,36 @@
 search_atoms.py — Retrieve knowledge atoms for the AskAlex skills.
 
 The atom file is ~19 MB / 21,700 rows, so a skill must NEVER read it whole.
-This is the retrieval layer: keyword + TF scoring with pillar and signal
-filters, returning only the top matches in a compact, LLM-friendly shape.
+This is the retrieval layer: hybrid keyword+semantic scoring with pillar and
+signal filters, returning only the top matches in a compact, LLM-friendly
+shape.
 
-Scoring
+Lexical scoring
     relevance = sum(tf(query_term)) / sqrt(len(atom))      # length-normalised
     final     = relevance * (1 + signal / 20)              # boost topical atoms
     Weak-signal atoms (signal < MIN_SIGNAL) are dropped by default because
     71% of this spoken corpus is general chat with no pillar topic; letting
     them through buries the useful atoms.
+
+Semantic scoring (optional — needs the project venv, see below)
+    Pure keyword matching misses atoms that discuss the same idea in
+    different words (a user asking about "customers ghosting me" won't
+    lexically match an atom about "no-shows"). If knowledge/atoms/embeddings.npy
+    exists (built by scripts/build_embeddings.py), each query is also scored
+    by cosine similarity against precomputed atom embeddings, and the two
+    rankings are combined with Reciprocal Rank Fusion (RRF) — a rank-based
+    fusion that needs no score normalization between the two very
+    differently-scaled methods. If the embeddings file doesn't exist, or
+    fastembed isn't installed, retrieval silently falls back to lexical-only
+    (same behavior as before this feature existed) — semantic search is
+    additive, never required.
+
+    To enable it once:
+        python3 -m venv .venv
+        .venv/bin/pip install fastembed numpy
+        .venv/bin/python3 scripts/build_embeddings.py
+    After that, just keep calling this script with plain `python3` as usual —
+    it re-execs itself under .venv's interpreter automatically when needed.
 
 Near-duplicate removal
     Hormozi repeats the same frameworks across many videos, and several of
@@ -30,13 +51,13 @@ Usage
     python3 search_atoms.py "guarantee" --source book --top 5
     python3 search_atoms.py "guarantee" --min-signal 6 --json
     python3 search_atoms.py "lead magnet" --full        # no content truncation
-    python3 search_atoms.py "churn" --no-dedup          # show duplicates too
+    python3 search_atoms.py "churn" --no-dedup           # show duplicates too
+    python3 search_atoms.py "churn" --lexical-only       # skip semantic scoring
 """
 
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import math
 import os
@@ -61,7 +82,14 @@ def find_root() -> str:
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ATOMS = os.path.join(find_root(), "knowledge", "atoms", "atoms.jsonl")
+ROOT = find_root()
+ATOMS = os.path.join(ROOT, "knowledge", "atoms", "atoms.jsonl")
+EMB_FILE = os.path.join(ROOT, "knowledge", "atoms", "embeddings.npy")
+EMB_IDS_FILE = os.path.join(ROOT, "knowledge", "atoms", "embeddings_ids.json")
+VENV_PYTHON = os.path.join(ROOT, ".venv", "bin", "python3")
+
+MODEL_NAME = "BAAI/bge-small-en-v1.5"
+RRF_K = 60  # standard default for reciprocal rank fusion
 
 STOP = set("""
 a an the and or but if then than that this these those is are was were be been being
@@ -76,6 +104,23 @@ DEFAULT_MIN_SIGNAL = 3
 
 DEDUP_PREFIX_WORDS = 12   # atoms sharing fewer leading words are never compared
 DEDUP_JACCARD = 0.8       # >= this similarity -> duplicate
+
+
+def maybe_reexec_into_venv(want_semantic: bool) -> None:
+    """If semantic search is wanted but this interpreter can't do it, and the
+    project venv can, re-exec under the venv's python. No-op otherwise —
+    lexical-only search never needed numpy/fastembed and still doesn't."""
+    if not want_semantic:
+        return
+    try:
+        import fastembed  # noqa: F401
+        import numpy  # noqa: F401
+        return  # already usable, nothing to do
+    except ImportError:
+        pass
+    if os.path.isfile(VENV_PYTHON) and os.path.abspath(sys.executable) != os.path.abspath(VENV_PYTHON):
+        os.execv(VENV_PYTHON, [VENV_PYTHON] + sys.argv)
+    # no venv available — fall through and run lexical-only below
 
 
 def terms(q: str) -> list[str]:
@@ -155,6 +200,59 @@ def score_atom(a: dict, qt: list[str]) -> float:
     return relevance * (1 + a.get("signal", 0) / 20)
 
 
+def load_semantic_index():
+    """Returns (embeddings ndarray, id->row dict) or (None, None) if unavailable."""
+    if not (os.path.isfile(EMB_FILE) and os.path.isfile(EMB_IDS_FILE)):
+        return None, None
+    try:
+        import numpy as np
+    except ImportError:
+        return None, None
+    vectors = np.load(EMB_FILE)
+    with open(EMB_IDS_FILE, encoding="utf-8") as fh:
+        ids = json.load(fh)
+    id_to_row = {aid: i for i, aid in enumerate(ids)}
+    return vectors, id_to_row
+
+
+_MODEL_CACHE = None
+
+
+def embed_query(query: str):
+    global _MODEL_CACHE
+    from fastembed import TextEmbedding
+    import numpy as np
+    if _MODEL_CACHE is None:
+        _MODEL_CACHE = TextEmbedding(model_name=MODEL_NAME)
+    vec = next(_MODEL_CACHE.embed([query]))
+    norm = np.linalg.norm(vec)
+    return vec / norm if norm else vec
+
+
+def semantic_rank_ids(query: str, candidate_ids: list[str], vectors, id_to_row) -> list[str]:
+    """Return candidate_ids sorted by semantic similarity to query, best first."""
+    import numpy as np
+    rows = [id_to_row[i] for i in candidate_ids if i in id_to_row]
+    ids_here = [i for i in candidate_ids if i in id_to_row]
+    if not ids_here:
+        return []
+    qvec = embed_query(query)
+    sims = vectors[rows] @ qvec
+    order = np.argsort(-sims)
+    return [ids_here[i] for i in order]
+
+
+def rrf_combine(*ranked_id_lists: list[str], k: int = RRF_K) -> dict[str, float]:
+    """Reciprocal Rank Fusion: sum of 1/(k + rank) across every ranking an id
+    appears in. Robust to the two methods' scores living on incomparable
+    scales — only relative order within each list matters."""
+    scores: dict[str, float] = defaultdict(float)
+    for ranked in ranked_id_lists:
+        for rank, aid in enumerate(ranked):
+            scores[aid] += 1.0 / (k + rank + 1)
+    return scores
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("query", help="search terms, e.g. 'raise prices churn'")
@@ -168,10 +266,14 @@ def main() -> int:
                     help="only atoms with a clear topical signal (drops ~71%% chatter)")
     ap.add_argument("--no-dedup", action="store_true",
                     help="disable near-duplicate removal (show all matches)")
+    ap.add_argument("--lexical-only", action="store_true",
+                    help="skip semantic scoring even if embeddings are available")
     ap.add_argument("--json", action="store_true", help="emit raw JSON lines")
     ap.add_argument("--full", action="store_true", help="do not truncate content")
     ap.add_argument("--chars", type=int, default=420, help="content truncation length")
     args = ap.parse_args()
+
+    maybe_reexec_into_venv(want_semantic=not args.lexical_only)
 
     qt = terms(args.query)
     if not qt:
@@ -181,17 +283,47 @@ def main() -> int:
     atoms = load(args.min_signal, args.pillar, args.strong_only, args.source)
     if not args.no_dedup:
         atoms = dedup(atoms)
-    scored = [(score_atom(a, qt), a) for a in atoms]
-    scored = [(s, a) for s, a in scored if s > 0]
-    scored.sort(key=lambda x: -x[0])
+    by_id = {a["id"]: a for a in atoms}
 
-    if not scored:
+    # lexical ranking over the whole filtered candidate pool (zero-score atoms
+    # excluded from this ranking, same as before this feature existed)
+    lex_scored = sorted(
+        ((score_atom(a, qt), a["id"]) for a in atoms),
+        key=lambda x: -x[0],
+    )
+    lexical_ranked_ids = [aid for s, aid in lex_scored if s > 0]
+    lex_score_by_id = {aid: s for s, aid in lex_scored}
+
+    semantic_used = False
+    semantic_ranked_ids: list[str] = []
+    if not args.lexical_only:
+        vectors, id_to_row = load_semantic_index()
+        if vectors is not None:
+            try:
+                semantic_ranked_ids = semantic_rank_ids(
+                    args.query, list(by_id.keys()), vectors, id_to_row
+                )
+                semantic_used = True
+            except Exception as e:  # model/runtime issue — degrade, don't crash a skill's turn
+                print(f"(semantic scoring unavailable this run: {e})", file=sys.stderr)
+
+    if semantic_used:
+        combined = rrf_combine(lexical_ranked_ids, semantic_ranked_ids)
+        ranked_ids = sorted(combined.keys(), key=lambda aid: -combined[aid])
+    else:
+        ranked_ids = lexical_ranked_ids
+
+    if not ranked_ids:
         print(f"No atoms matched {qt!r} "
               f"(pillar={args.pillar}, min_signal={args.min_signal}, "
               f"strong_only={args.strong_only}).", file=sys.stderr)
         return 1
 
-    for s, a in scored[: args.top]:
+    shown = ranked_ids[: args.top]
+    semantic_only_ids = set(semantic_ranked_ids[:50]) - set(lexical_ranked_ids) if semantic_used else set()
+
+    for aid in shown:
+        a = by_id[aid]
         if args.json:
             print(json.dumps(a, ensure_ascii=False))
             continue
@@ -205,8 +337,10 @@ def main() -> int:
         pillar_note = ""
         if args.pillar and a["pillar"] != args.pillar:
             pillar_note = f" [secondary match for --pillar {args.pillar}]"
+        match_note = " [semantic match — no keyword overlap]" if aid in semantic_only_ids else ""
+        score_display = lex_score_by_id.get(aid, 0.0)
         print(f"[{a['id']}] {a['pillar']} {a['pillar_name']}{pillar_note} | signal={a['signal']} "
-              f"| score={s:.2f} | {a['title']}")
+              f"| score={score_display:.2f}{match_note} | {a['title']}")
         print(f"    {content}")
         print(f"    — source: {a['source']}")
         print()

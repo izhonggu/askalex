@@ -86,12 +86,34 @@ Search 2-4 times per answer, with different framings — one for the symptom, on
 the mechanism, one for the fix.
 
 **If the user isn't writing in English, translate the concept before you search, not
-the sentence.** The knowledge base is English prose and `search_atoms.py` does
-keyword/TF scoring, not cross-lingual embedding matching — querying it with the
-user's original non-English text will silently return weak or empty results, which
+the sentence.** The knowledge base is English prose. `search_atoms.py`'s keyword
+scoring obviously needs English terms, and — even where semantic search is set up
+(below) — the embedding model is English-only, not multilingual, so querying in the
+user's original language will silently return weak or empty results either way. That
 looks like "the knowledge base has nothing on this" when really the search just never
 had a chance to match. Convert what they're actually asking into idiomatic English
 search terms first (e.g. a Chinese question about customers not returning becomes
 something like `"customer churn repeat purchase"`, not a transliteration), then query
 normally. Answer the user in whatever language they wrote in — this only affects the
 search string, not the response.
+
+**Semantic search (optional, additive).** Pure keyword matching misses atoms that
+discuss the same idea in different words — a query about "customers ghosting me" won't
+lexically match an atom about "no-shows" even though it's exactly on point.
+`search_atoms.py` blends in cosine-similarity search automatically whenever
+`knowledge/atoms/embeddings.npy` exists, combining it with the keyword ranking via
+Reciprocal Rank Fusion — no flag needed, and if the embeddings file (or the venv it
+needs) isn't there, it just runs lexical-only like before, silently. To enable it once:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install fastembed numpy
+.venv/bin/python3 scripts/build_embeddings.py
+```
+
+After that, keep invoking `search_atoms.py` with plain `python3` as shown above — it
+re-execs itself under `.venv` automatically when a query needs it. Results that only
+matched semantically (no shared keywords at all) are labeled `[semantic match — no
+keyword overlap]` so you can tell which channel actually found them. Pass
+`--lexical-only` to disable this and get the old pure-keyword behavior, e.g. to sanity-
+check whether a surprising result is a real semantic match or came from elsewhere.
