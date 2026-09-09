@@ -153,7 +153,7 @@ Alex Hormozi 的公开教学内容——YouTube、书籍和演讲。
 
 ## 作者与支持
 
-作者：Zhong —— [X](https://x.com/izhonggu) · [LinkedIn](https://www.linkedin.com/in/guzhong/) · [hardcoremkt.com](https://hardcoremkt.com/)
+作者：Zhong —— [X](https://x.com/izhonggu) · [LinkedIn](https://www.linkedin.com/in/guzhong/) · [Newsletter](https://sendfox.com/lp/1w0zkj) · [hardcoremkt.com](https://hardcoremkt.com/)
 
 搭这套东西投入了相当多的时间、反复打磨和 token 消耗——如果这里的某次诊断帮你省下了一次付费咨询，欢迎请我喝杯咖啡，这也能帮着把项目维护下去。
 
