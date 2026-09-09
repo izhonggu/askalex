@@ -2,14 +2,14 @@
 
 English | [简体中文](README.zh-CN.md)
 
-**A 24/7 business coach that thinks the way Alex Hormozi does — living inside your Claude Code.**
+**A 24/7 business coach that thinks the way Alex Hormozi does.**
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
 ![Skills](https://img.shields.io/badge/skills-12-orange)
 ![Status](https://img.shields.io/badge/status-early-lightgrey)
 
-> Bring it a business problem at any hour — pricing, an offer that isn't converting, customers who cancel, leads that go nowhere, or just the fact that you know what to do and aren't doing it — and it doesn't just answer, it diagnoses. Nine specialist skills share one job: locate what's actually broken, name the framework behind the read, and hand you three things to try this week, each with a way to know if it worked.
+> People pay $35,000 and fly to Vegas for two days to have Alex's own team find their business's real constraint and hand them the framework to fix it. This installs the same method: locate what's actually broken, name the framework behind the read, and hand you three things to try this week, each with a way to know if it worked.
 
 Not affiliated with or endorsed by Alex Hormozi or Acquisition.com. This is fan-built, educational tooling — see [Disclaimer](#disclaimer).
 
@@ -86,11 +86,11 @@ Full routing table, boundary rules between skills, and shared conventions live i
 
 ## How it works
 
-![How the knowledge base is built](docs/knowledge-pipeline.svg)
-
-Every skill answers the same way: retrieve 2-4 times with different framings (the symptom, the mechanism, the fix), synthesize instead of dumping raw results, name the framework it used, and say plainly when retrieval comes back empty instead of inventing a take. See the shared rules in [`skills/README.md`](skills/README.md#shared-rules).
+Every skill grounds its answer in a knowledge base before it speaks. It retrieves what's relevant, synthesizes instead of dumping raw material, names the framework it's using, and says plainly when nothing relevant comes back rather than inventing a take. See the shared rules in [`skills/README.md`](skills/README.md#shared-rules).
 
 ## Knowledge base — you build your own
+
+![How the knowledge base is built](docs/knowledge-pipeline.svg)
 
 This repo ships the **skills and the pipeline**, not a pre-built knowledge base. That's a deliberate line, not a missing feature:
 
@@ -142,12 +142,6 @@ askalex/
 ## Disclaimer
 
 AskAlex is an independent, fan-built project. It is **not affiliated with, endorsed by, or reviewed by** Alex Hormozi or Acquisition.com. The frameworks referenced (Value Equation, Grand Slam Offer, Money Model, the Crazy Eight, and others) are his public teaching, distilled and paraphrased for this project's own use — not licensed or officially sanctioned material.
-
-Every skill enforces the same three rules, and they are load-bearing, not decorative:
-
-1. **First name only.** Body text says "Alex," never "Hormozi" — the full name appears only in skill descriptions, where exact identification is needed for triggering.
-2. **Third person, always.** No skill writes in first person as Alex. It reasons *about* his frameworks — "Alex's read on this would be…" — and never claims his identity.
-3. **No quotes.** Nothing in this project's knowledge base is presented as something he said verbatim. Every atom is a paraphrase; skills attribute the *idea*, never a *sentence*.
 
 ## License
 

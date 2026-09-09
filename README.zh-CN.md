@@ -2,14 +2,14 @@
 
 [English](README.md) | 简体中文
 
-**一个 24/7 在线的商业教练，思考方式复刻 Alex Hormozi——直接跑在你的 Claude Code 里。**
+**一个 24/7 在线的商业教练，思考方式复刻 Alex Hormozi。**
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-blueviolet)
 ![Skills](https://img.shields.io/badge/skills-12-orange)
 ![Status](https://img.shields.io/badge/status-early-lightgrey)
 
-> 任何时候，把生意上的问题丢给它——定价、转化不好的 offer、客户流失、获客没人来，或者单纯是"知道该做什么却迟迟不做"——它不会只是回答你，而是先诊断。九个专家级 skill 共享同一个原则：先定位真正卡住的地方，说清楚背后用的是哪个框架，再给你三件这周就能验证的具体动作。
+> 有人愿意花 35,000 美元飞去拉斯维加斯待两天，就为了让 Alex 自己的团队帮他们找到生意里真正卡住的地方，再交给他们对应的框架去解决。这套系统装的是同一套方法：先定位真正卡住的地方，说清楚背后用的是哪个框架，再给你三件这周就能验证的具体动作，每一件都有办法判断有没有用。
 
 非官方项目，与 Alex Hormozi 或 Acquisition.com 没有任何关联或授权关系。这是一个粉丝自建的学习型工具——详见[免责声明](#免责声明)。
 
@@ -86,11 +86,11 @@ cp -r skills/askalex-* ~/.claude/skills/
 
 ## 工作原理
 
-![知识库是怎么建出来的](docs/knowledge-pipeline.svg)
-
-每个 skill 的回答方式是一致的：用不同角度检索 2-4 次（症状一次、机制一次、解法一次），综合而不是把原始结果直接倒出来，点名用到的框架，检索结果稀薄时就直说，不编造答案。共享规则见 [`skills/README.md`](skills/README.md#shared-rules)。
+每个 skill 回答之前都会先在知识库里落地：检索相关内容，综合而不是把原始结果直接倒出来，点名用到的框架，检索结果稀薄时就直说，不编造答案。共享规则见 [`skills/README.md`](skills/README.md#shared-rules)。
 
 ## 知识库 —— 需要你自己搭建
+
+![知识库是怎么建出来的](docs/knowledge-pipeline.svg)
 
 这个仓库公开的是**skill 和处理管线**，不是一份预建好的知识库。这是一条刻意划的线，不是漏做了：
 
@@ -142,12 +142,6 @@ askalex/
 ## 免责声明
 
 AskAlex 是一个独立的、粉丝自建的项目，**与 Alex Hormozi 或 Acquisition.com 没有任何关联、未经其认可或审核**。文中引用的框架（Value Equation、Grand Slam Offer、Money Model、Crazy Eight 等）来自他的公开教学内容，为了这个项目的需要做了提炼和转述——不是经过许可或官方认证的材料。
-
-每个 skill 都强制执行同样三条规则，这几条是真正在起作用的硬约束，不是摆设：
-
-1. **只用名字。** 正文一律用 "Alex"，绝不用 "Hormozi"——全名只出现在 skill 的 description 字段里，那是触发匹配需要精确指代的地方。
-2. **永远第三人称。** 没有任何 skill 会以 Alex 的第一人称写作。它只会围绕他的框架做推理——"Alex 的看法大概会是……"——绝不冒充他的身份。
-3. **绝不引用原话。** 这个项目知识库里的任何内容都不会被包装成"他原话就是这么说的"。每一条原子都是转述；skill 只归属**观点**，绝不归属**某一句话**。
 
 ## 许可证
 
